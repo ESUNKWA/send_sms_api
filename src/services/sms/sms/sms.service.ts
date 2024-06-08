@@ -20,7 +20,7 @@ export class SmsService {
         return buffer.toString('utf-8');
       }
 
-    async getExternalData(): Promise<AxiosResponse<any>> {
+    async authentication(): Promise<AxiosResponse<any>> {
         const url = 'https://api.orange.com/oauth/v3/token';
         const username = 'NSM2OdT0eWeeWAT0ubJG922WGAJmlDSw';
         const password = '56GhcT6hrfFLkTlC';
