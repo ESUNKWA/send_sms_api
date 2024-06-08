@@ -2,11 +2,10 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { SenderService } from './sender.service';
 import { CreateSenderDto } from './dto/create-sender.dto';
 import { UpdateSenderDto } from './dto/update-sender.dto';
-import { SmsService } from 'src/services/sms/sms/sms.service';
 
 @Controller('sender')
 export class SenderController {
-  constructor(private readonly senderService: SenderService, private smsService: SmsService) {}
+  constructor(private readonly senderService: SenderService) {}
 
   @Post()
   create(@Body() createSenderDto: CreateSenderDto) {
@@ -16,11 +15,6 @@ export class SenderController {
   @Get()
   findAll() {
     return this.senderService.findAll();
-  }
-
-  @Post('/sms')
-  async test(){
-    return await this.smsService.authentication();
   }
 
   @Get(':id')

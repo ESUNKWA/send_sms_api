@@ -41,20 +41,23 @@ export class SmsService {
     }
 
     // Authentification à l'API d'envoie d'sms
-    async sms_balance(token: string): Promise<AxiosResponse<any>> {
-        const url = 'https://api.orange.com/sms/admin/v1/contracts';
-        const auth = 'Bearer ' + token;
-    
-        const headers = {
-         'Content-Type': 'application/x-www-form-urlencoded',
-          Authorization: auth,
-        };
-    
-        const response = await firstValueFrom(
-          this.httpService.post(url, {grant_type:'client_credentials'}, { headers }),
-        );
-    
-        return response.data;
+    async sms_balance(data: {token: string}): Promise<AxiosResponse<any>> {
+        try {
+            const url = 'https://api.orange.com/sms/admin/v1/contracts';
+            const auth = 'Bearer ' + data.token;
+        
+            const headers = {
+            Authorization: auth,
+            };
+            
+            const response = await firstValueFrom(
+            this.httpService.get(url, { headers }),
+            );
+        
+            return response.data;
+        } catch (error) {
+            return error.stack;
+        }
     }
 
 }

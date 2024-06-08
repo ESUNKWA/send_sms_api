@@ -4,8 +4,7 @@ import { AppService } from './app.service';
 import { SenderModule } from './sender/sender.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Sender } from './sender/entities/sender.entity';
-import { SmsService } from './services/sms/sms/sms.service';
-import { HttpModule } from '@nestjs/axios';
+import { TestModule } from './test/test.module';
 
 @Module({
   imports: [
@@ -20,6 +19,7 @@ import { HttpModule } from '@nestjs/axios';
       entities: [Sender],
       synchronize: true,
     }),
+    TestModule,
   ],
   controllers: [AppController],
   providers: [AppService],
