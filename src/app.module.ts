@@ -5,10 +5,12 @@ import { SenderModule } from './sender/sender.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Sender } from './sender/entities/sender.entity';
 import { TestModule } from './test/test.module';
+import { TokensModule } from './tokens/tokens.module';
+import { Token } from './tokens/entities/token.entity';
+import { TokensService } from './tokens/tokens.service';
 
 @Module({
   imports: [
-    SenderModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
@@ -16,10 +18,12 @@ import { TestModule } from './test/test.module';
       username: 'postgres',
       password: 'postgres',
       database: 'just_send_db',
-      entities: [Sender],
+      entities: [Sender, Token],
       synchronize: true,
     }),
     TestModule,
+    SenderModule,
+    TokensModule,
   ],
   controllers: [AppController],
   providers: [AppService],
