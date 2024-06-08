@@ -20,6 +20,7 @@ export class SmsService {
         return buffer.toString('utf-8');
       }
 
+    // Authentification à l'API d'envoie d'sms
     async authentication(): Promise<AxiosResponse<any>> {
         const url = 'https://api.orange.com/oauth/v3/token';
         const username = 'NSM2OdT0eWeeWAT0ubJG922WGAJmlDSw';
@@ -37,6 +38,23 @@ export class SmsService {
         );
     
         return response.data;
-      }
+    }
+
+    // Authentification à l'API d'envoie d'sms
+    async sms_balance(token: string): Promise<AxiosResponse<any>> {
+        const url = 'https://api.orange.com/sms/admin/v1/contracts';
+        const auth = 'Bearer ' + token;
+    
+        const headers = {
+         'Content-Type': 'application/x-www-form-urlencoded',
+          Authorization: auth,
+        };
+    
+        const response = await firstValueFrom(
+          this.httpService.post(url, {grant_type:'client_credentials'}, { headers }),
+        );
+    
+        return response.data;
+    }
 
 }
