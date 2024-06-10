@@ -8,6 +8,7 @@ import { TestModule } from './test/test.module';
 import { TokensModule } from './tokens/tokens.module';
 import { Token } from './tokens/entities/token.entity';
 import { TokensService } from './tokens/tokens.service';
+import { ApismsModule } from './apisms/apisms.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { TokensService } from './tokens/tokens.service';
     TestModule,
     SenderModule,
     TokensModule,
+    ApismsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

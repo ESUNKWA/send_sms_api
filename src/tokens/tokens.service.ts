@@ -21,20 +21,20 @@ export class TokensService {
     }
   }
 
-   async findAll() {
-    return await this.tokenRepository.find();
+  async findAll() {
+    return await this.tokenRepository.find(
+      {select: { 'id': true, 'access_token':true}
+    });
   }
 
   findOne(id: number) {
     return `This action returns a #${id} token`;
   }
 
-  async update(id: number, updateTokenDto: UpdateTokenDto) {
+  async update(id: number = 2, updateTokenDto: UpdateTokenDto) {
     try {
-      
       const checkData = await this.tokenRepository.preload({id, ...updateTokenDto});
-
-      if( checkData ){
+      if(checkData){
         return await this.tokenRepository.save(checkData);
       }
 
