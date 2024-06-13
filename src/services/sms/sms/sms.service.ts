@@ -20,6 +20,7 @@ export class SmsService {
         return buffer.toString('utf-8');
       }
 
+      
     // Authentification à l'API d'envoie d'sms
     async authentication(): Promise<AxiosResponse<any>> {
         const url = 'https://api.orange.com/oauth/v3/token';

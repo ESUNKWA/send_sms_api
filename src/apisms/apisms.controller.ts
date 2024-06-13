@@ -1,10 +1,13 @@
 import { Body, Controller, Get, Post} from '@nestjs/common';
 import { ApismsService } from './apisms.service';
 import { TokensService } from 'src/tokens/tokens.service';
+import { MessagesService } from 'src/messages/messages.service';
 
 @Controller('apisms')
 export class ApismsController {
-  constructor(private readonly apismsService: ApismsService, private tokenService: TokensService) {}
+  constructor(private readonly apismsService: ApismsService, private tokenService: TokensService,
+    private messageService: MessagesService
+  ) {}
 
   @Get('auth')
   public async authentication(){
@@ -40,11 +43,19 @@ export class ApismsController {
 
   @Post('send')
   public async send(@Body() body: any){
-
     //get sms api token
     const token = await this.tokenService.findAll();
     const tokenValue = token[0].access_token;
-    return await this.apismsService.sendSmd(body, tokenValue);
+
+    const insert: any  = await this.messageService.create({message: body.message});
+    
+    const sendSms = await this.apismsService.sendSmd(body, tokenValue);
+
+    await sendSms.subscribe( (result: any = {}) => {
+      const updMsg  =  this.messageService.update(insert.id,{message: body.message, status: "send"});
+      return updMsg;
+    });
+    
   }
 
 }

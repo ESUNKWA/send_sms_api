@@ -55,14 +55,14 @@ async sendSmd(data: {destinataire: string, message: string}, token: string): Pro
     //Envoie des sms
     const response: any = this.httpService.post('https://api.orange.com/smsmessaging/v1/outbound/tel%3A%2B2250000/requests',
       {
-        "outboundSMSMessageRequest":{ 
-          "address": "tel:+225" + data.destinataire, 
-          "senderAddress":"tel:+2250000",
-          "senderName":"DKEM ",
-          "outboundSMSTextMessage":{ 
+        "outboundSMSMessageRequest": {
+          "address": "tel:+225" + data.destinataire,
+          "senderAddress": "tel:+2250000",
+          "senderName": "SMS418760",
+          "outboundSMSTextMessage": {
             "message": data.message
-          } 
-        } 
+          }
+        }
       },
       {
         headers: {
@@ -70,20 +70,13 @@ async sendSmd(data: {destinataire: string, message: string}, token: string): Pro
           'Authorization': `Bearer ${token}`
         }
       }).pipe(
-      map((response) =>  response?.data),
-      catchError((e) => {
-        throw new HttpException(e.response.data, e.response.status);
-      })
-    );
-    return response;
-    response.subscribe(async (result: any = {}) => {
-      /* const updStatus = await this.smsRepository.preload({id, ...{status:'send'}});
-      const insert = await this.smsRepository.save(updStatus); */
-    });
+        map((response) => response?.data),
+        catchError((e) => {
+          throw new HttpException(e.response.data, e.response.status);
+        })
+      );
 
     return response;
- 
-
 }
 
 }

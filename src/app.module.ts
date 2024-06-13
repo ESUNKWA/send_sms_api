@@ -9,6 +9,8 @@ import { TokensModule } from './tokens/tokens.module';
 import { Token } from './tokens/entities/token.entity';
 import { TokensService } from './tokens/tokens.service';
 import { ApismsModule } from './apisms/apisms.module';
+import { MessagesModule } from './messages/messages.module';
+import { Message } from './messages/entities/message.entity';
 
 @Module({
   imports: [
@@ -19,13 +21,14 @@ import { ApismsModule } from './apisms/apisms.module';
       username: 'postgres',
       password: 'postgres',
       database: 'just_send_db',
-      entities: [Sender, Token],
+      entities: [Sender, Token, Message],
       synchronize: true,
     }),
     TestModule,
     SenderModule,
     TokensModule,
     ApismsModule,
+    MessagesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
